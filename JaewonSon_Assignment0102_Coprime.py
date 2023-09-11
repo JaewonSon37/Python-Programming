@@ -18,6 +18,7 @@ def coprime(coprime_test_number1, coprime_test_number2):
 
   if coprime_test_number1 == 1 or coprime_test_number2 == 1:
     return True
+  
   else:
     count = 0
     if coprime_test_number1 < coprime_test_number2:
@@ -33,14 +34,19 @@ def coprime(coprime_test_number1, coprime_test_number2):
 
     return count < 1
 
+
 while True:
 
   coprime_test_number1 = input('Enter the First Number or Exit: ')
+  
   if coprime_test_number1 == 'Exit':
     print('Thank you for using Coprime test!')
     break
+  
   coprime_test_number2 = input('Enter the Second Number: ')
+  
   if coprime(eval(coprime_test_number1), eval(coprime_test_number2)):
     print('Those two numbers are coprime.')
+  
   else:
     print('Those two numbers are not coprime.')
