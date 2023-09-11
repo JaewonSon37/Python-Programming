@@ -5,6 +5,7 @@
 
 
 def compute_grade():
+    
     """Function for compute total score of a assignment.
 
     Returns:
@@ -44,8 +45,10 @@ def compute_grade():
     if question9 == 'No':
         question10 = input('How many hours late did you submit it?: ')
         return eval(question5) + eval(question6) + eval(question7) + eval(question8) - 0.4 * eval(question10)
+    
     else:
         return eval(question5) + eval(question6) + eval(question7) + eval(question8)
+
 
 total_score = compute_grade()
 print(total_score)
