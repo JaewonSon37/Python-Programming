@@ -32,13 +32,13 @@ def compute_grade():
     if question4 == 'No':
         return('Your assignment grade is 0')
 
-    question5 = input('Evaluate the correctness of the code.\nEnter the point between 1 to 10: ')
+    question5 = input('Evaluate the correctness of the code.\nEnter the point between 0 to 10: ')
 
-    question6 = input('Evaluate the elegance of the code.\nEnter the point between 1 to 10: ')
+    question6 = input('Evaluate the elegance of the code.\nEnter the point between 0 to 10: ')
 
-    question7 = input('Evaluate the code hygiene.\nEnter the point between 1 to 10: ')
+    question7 = input('Evaluate the code hygiene.\nEnter the point between 0 to 10: ')
 
-    question8 = input('Evaluate the quality of the discussion on the video.\nEnter the point between 1 to 10: ')
+    question8 = input('Evaluate the quality of the discussion on the video.\nEnter the point between 0 to 10: ')
 
     question9 = input('Did you submit the assignment before the deadline? [Yes or No]: ')
 
