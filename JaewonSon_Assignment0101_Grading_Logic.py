@@ -20,7 +20,7 @@ def compute_grade():
     question2 = input('Did you include your name and date in the assignment? [Yes or No]: ')
 
     if question2 == 'No':
-        return print('Your assignment grade is 0')
+        return('Your assignment grade is 0')
 
     question3 = input('Did you include the honor statement in the assignment? [Yes or No]: ')
 
