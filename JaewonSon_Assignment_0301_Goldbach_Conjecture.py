@@ -1,7 +1,7 @@
 ## Name: Jaewon Son
 ## Date: September 24 2023
 ## Honor Statement: I have not given or received any unauthorized assistance on this assignment.
-## Link: 
+## Link: https://youtu.be/KNY-E2rbzio
 
 
 def greet_to_user():
@@ -10,7 +10,7 @@ def greet_to_user():
     """
 
     print("\nWelcome to Goldbach Conjecture Test!")
-    print("\nYou can check below that the every even integer consist of the two primes.")
+    print("\nYou can check below that the every even integer consist of the two primes.\n")
 
 
 def is_prime_number():
@@ -21,7 +21,7 @@ def is_prime_number():
         list: Return list of the prime numbers.
     """
 
-    prime_list = []
+    prime_list = []   # List for prime numbers
 
     for num in range(2, 100):
         if num == 2 or num == 3:   # 2 and 3 are prime numbers
@@ -43,10 +43,14 @@ def test_goldbach_conjecture(numbers_in_prime_list):
     """
 
     for test_number in range(4, 101):
-        if test_number % 2 == 0:
+        if test_number % 2 == 0:   # Goldbach conjecture is for even numbers
+
             prime_number1 = (test_number // 2)   # Start calculating from half of the test_number
+
             while True:
+
                 prime_number2 = test_number - prime_number1   # Sum of the prime_number1 and prime_number2 is same as test_number 
+
                 if (prime_number1 in numbers_in_prime_list) and (prime_number2 in numbers_in_prime_list):   # Checking prime_number1 and prime_number2 are including in the numbers_in_prime_list
                     print(f"{test_number} = {int(prime_number1)} + {int(prime_number2)}")
                     break
