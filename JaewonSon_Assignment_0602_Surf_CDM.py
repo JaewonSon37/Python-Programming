@@ -123,7 +123,7 @@ while to_crawl and len(visited_urls) < maximum_cap:
     links_on_page = extract_links(current_url)   # A list of extracted links
 
     for link in links_on_page:
-        if link is not None and not link.startswith("http"):
+        if link is not None and not link.startswith("http://cdm"):
             link = urljoin(current_url, link)
         if link is not None and link not in visited_urls:
             visited_urls.add(link)
