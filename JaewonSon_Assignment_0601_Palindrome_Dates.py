@@ -1,0 +1,120 @@
+## Name: Jaewon Son
+## Date: October 15 2023
+## Honor Statement: I have not given or received any unauthorized assistance on this assignment.
+## Link: https://youtu.be/KQdLfmQy13c
+
+
+def date1():
+
+    """Generate a list of dates in the DD/MM/YYYY format.
+
+    Returns:
+        list: Returns a list of dates for Jan, Mar, May, Jul, Aug. Oct, and Dec in the 21st century.
+    """
+
+    month_with_31_days = ['01', '03', '05', '07', '08', '10', '12']
+
+    date_list1 = []
+
+    for year in range(2000, 2100):
+        for month in month_with_31_days:
+            for day in range(1, 32):   # 31 days
+                date = f"{day}/{month}/{year}"   # DD/MM/YYYY format
+                date = date.zfill(10)   # Fixed as a 10-character string
+                date_list1.append(date)
+
+    return date_list1
+
+
+def date2():
+
+    """Generate a list of dates in the DD/MM/YYYY format.
+
+    Returns:
+        list: Returns a list of dates for Apr, Jun, Sep, and Nov in the 21st century.
+    """
+
+    month_with_30_days = ['04', '06', '09', '11']
+
+    date_list2 = []
+
+    for year in range(2000, 2100):
+        for month in month_with_30_days:
+            for day in range(1, 31):   # 30 days
+                date = f"{day}/{month}/{year}"   # DD/MM/YYYY format
+                date = date.zfill(10)   # Fixed as a 10-character string
+                date_list2.append(date)
+
+    return date_list2
+
+
+def date3():
+
+    """Generate a list of dates in the DD/MM/YYYY format.
+
+    Returns:
+        list: Returns a list of dates for Feb in the 21st century.
+    """
+
+    month_with_28_days = ['02']
+
+    date_list3 = []
+
+    for year in range(2000, 2100):
+        for month in month_with_28_days:
+            for day in range(1, 29):   # 28 days
+                date = f"{day}/{month}/{year}"   # DD/MM/YYYY format
+                date = date.zfill(10)   # Fixed as a 10-character string
+                date_list3.append(date)
+
+    return date_list3
+
+
+def palindrome_date(date_list):
+
+    """Test if a date is a palindrome date.
+
+    Returns:
+        list: Returns a list of palindrome dates.
+    """
+
+    palindrome_date_list = []
+
+    for date in date_list:   # Checking whether a date is a palindrome or not.
+        if date[0] == date[9]:
+            if date[1] == date[8]:
+                if date[3] == date[7]:
+                    if date[4] == date[6]:
+                        palindrome_date_list.append(date)
+
+    return palindrome_date_list
+
+
+def write_text_file(palindrome_dates_list):
+
+    """Write palindrome dates to a text file.
+    """
+   
+    palindrome_dates_list_file = open(r"C:\Users\LG\Desktop\DEPAUL UNIV\2023 Fall\Python Programming\DSC 430 - Week 6\JaewonSon_Assignment_0601_Palindrome_Dates.txt", 'w')
+
+    for palindrome_dates in palindrome_dates_list:
+        palindrome_dates_list_file.write(f"{palindrome_dates}\n")   # Write palindrome dates into a separate line
+
+    palindrome_dates_list_file.close()
+
+
+def main():
+
+    """Main function for the Palindrome Dates.
+    """
+
+    date_list = date1() + date2() + date3()
+    date_list.sort()
+
+    palindrome_date_list = palindrome_date(date_list)
+    
+    write_text_file(palindrome_date_list)
+
+
+if __name__ == "__main__":
+    main()
