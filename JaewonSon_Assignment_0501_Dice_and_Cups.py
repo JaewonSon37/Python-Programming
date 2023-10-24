@@ -116,9 +116,3 @@ class Cup:
 
         final_result = ', '.join([repr(dice) for dice in self.trial_list])
         return f'Dice and Cup Result: {final_result}'
-
-
-dice_and_cups_trial = Cup(2, 2, 2)
-print(dice_and_cups_trial.roll())
-print(dice_and_cups_trial.get_sum())
-print(dice_and_cups_trial)
