@@ -1,0 +1,107 @@
+## Name: Jaewon Son
+## Date: October 23 2023
+## Honor Statement: I have not given or received any unauthorized assistance on this assignment.
+## Link: https://youtu.be/JHDzgk2_xZk
+
+
+class Pseudorandom_Number_Generator:
+
+    """Generates pseudorandom numbers based on character pairs read from the War and Peace text file.
+    """
+
+    def __init__(self, seed=0, step=100, file_path="C:\\Users\\LG\\Desktop\\DEPAUL UNIV\\2023 Fall\\Python Programming\\DSC 430 - Week 7\\WarAndPeace.txt"):
+
+        """Initializes the Pseudorandom_Number_Generator with the given seed, step size, and file path.
+        """
+
+        self.seed = seed
+        self.step = step
+        self.file_path = file_path
+        self.character_pair_list = []
+        self.file_length = 0
+
+
+    def read_file(self):
+
+        """Reads the War and Peace text file.
+        """
+
+        with open(self.file_path, "r") as infile:
+            infile.seek(0, 2)   # Move the file pointer to a specific position
+            self.file_length = infile.tell()   # Get the current position of the file pointer
+
+
+    def character_pair(self, initial_point):
+
+        """Reads character pairs from the text file starting from the initial_point.
+
+        Returns:
+            tuple: Returns a tuple containing character1 and character2.
+        """
+
+        with open(self.file_path, "r") as infile:
+            infile.seek(initial_point % self.file_length)   # If 'initial_point' exceeds the length of the file, it wraps around to the beginning of the file
+            character1 = infile.read(1)   # Read one character
+            infile.seek((initial_point + self.step) % self.file_length)   # If 'initial_point' exceeds the length of the file, it wraps around to the beginning of the file
+            character2 = infile.read(1)   # Read another character
+
+        return character1, character2
+
+
+    def pseudorandom(self, min_value = 0, max_value = 1):
+
+        """Generates a pseudorandom value.
+
+        Returns:
+            float: Returns a pseudorandom value
+        """
+
+        self.character_pair_list = []   # Store pairs of characters
+        self.read_file()
+        r = 0   # Initialize a variable called 'r' to 0
+        power = 1   # Initialize a variable called 'power' to 1
+
+        while len(self.character_pair_list) <= 32:
+            character1, character2 = self.character_pair(self.seed)
+            if character1 != character2:
+                self.character_pair_list.append((character1, character2))
+            self.seed = (self.seed + self.step) % self.file_length   # Update the 'seed' value
+
+        for (character1, character2) in self.character_pair_list:
+            if character1 > character2:
+                r += 1 / (2 ** power)   # Calculate the value 'r'
+            power += 1
+
+        return r * (max_value - min_value) + min_value
+
+
+prng = Pseudorandom_Number_Generator(1000)   # Start with the seed value of 1,000
+
+
+def pseudorandom_number(iteration):
+
+    """Generates a list of pseudorandom numbers.
+
+    Returns:
+        list: Returns a list containing 10,000 pseudorandom numbers.
+    """
+
+    pseudorandom_number_list = [prng.pseudorandom() for _ in range(iteration)]   # Create a list containing pseudorandom numbers
+    pseudorandom_number_list.sort()
+
+    return pseudorandom_number_list
+
+
+pseudorandom_number_list = pseudorandom_number(10000)   # Generating 10,000 pseudorandom numbers
+
+
+print(min(pseudorandom_number_list))   # Calculate the min_valueimum value
+print(max(pseudorandom_number_list))   # Calculate the max_valueimum value
+print(sum(pseudorandom_number_list) / len(pseudorandom_number_list))   # Calculate the mean value
+
+
+file_path = r"C:\Users\LG\Desktop\DEPAUL UNIV\2023 Fall\Python Programming\DSC 430 - Week 7\PseudorandomNumber.txt"
+
+with open(file_path, "w") as file:   # Write a text file for the 'pseudorandom_number_list'
+    for number, prn in enumerate(pseudorandom_number_list, 1):
+        file.write(f"Pseudorandom Number {number}: {prn}\n")
