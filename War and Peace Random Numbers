@@ -9,7 +9,7 @@ class Pseudorandom_Number_Generator:
     """Generates pseudorandom numbers based on character pairs read from the War and Peace text file.
     """
 
-    def __init__(self, seed=0, step=100, file_path="C:\\Users\\LG\\Desktop\\DEPAUL UNIV\\2023 Fall\\Python Programming\\DSC 430 - Week 7\\WarAndPeace.txt"):
+    def __init__(self, seed=0, step=100, file_path = "C:\\Users\\LG\\Desktop\\DEPAUL UNIV\\2023 Fall\\Python Programming\\DSC 430 - Week 7\\WarAndPeace.txt"):
 
         """Initializes the Pseudorandom_Number_Generator with the given seed, step size, and file path.
         """
