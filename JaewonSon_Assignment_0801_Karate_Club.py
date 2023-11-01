@@ -1,0 +1,84 @@
+## Name: Jaewon Son
+## Date: October 29 2023
+## Honor Statement: I have not given or received any unauthorized assistance on this assignment.
+## Link: https://youtu.be/nPMTpUoWfac
+
+
+import numpy as np
+
+
+def file_load():
+
+    """Load the text file into a Numpy array.
+
+    Returns:
+        np.ndarray: Returns a Numpy array.
+    """
+    
+    file_path = input("Please enter the file path of the text file: ")
+    text_file = np.loadtxt(file_path)   # Load the text file into a Numpy array
+
+    print(text_file)
+
+    return text_file
+
+
+def is_symmetry(text_file):
+
+    """Check if the Numpy array is symmetric.
+
+    Returns:
+        bool: Returns True if the array is symmetric, False otherwise.
+    """
+
+    if np.array_equal(text_file, text_file.T):
+        return True
+    
+    else:
+        return False
+
+
+def result_of_analysis(text_file, is_symmetry):
+
+    """Perform analysis and print the results.
+    """
+    
+    if is_symmetry == False:   # Verifies symmetry of the input 2D array
+        print("I can't give you answers because this text file's array is not symmetry.")
+        return
+    
+    if is_symmetry == True:
+
+        number_of_members = text_file.shape[0]   # Calculate the number of members in the Karate club
+        print(f"\nThe number of members in the Karate club: {number_of_members} member(s)\n")
+
+        interactions_per_member = np.sum(text_file, axis=1)   # Calculate the number of interactions for each member       
+        print(f"The number of interactions each member of the club had: {interactions_per_member}\n")
+
+        most_active_member = np.where(interactions_per_member == np.max(interactions_per_member))[0]   # Find the indices of the most active members
+        most_active_interactions = np.max(interactions_per_member)   # Find the maximum number of interactions
+        print(f"The indices of the most active members and the number of interactions: Indices {most_active_member} / {int(most_active_interactions)} time(s)\n")
+
+        least_active_member = np.where(interactions_per_member == np.min(interactions_per_member))[0]   # Find the indices of the least active members
+        list_active_interactions = np.min(interactions_per_member)   # Find the minimum number of interactions
+        print(f"The indices of the least active members and the number of interactions: Indices {least_active_member} / {int(list_active_interactions)} time(s)\n")
+
+        average_of_interactions = np.mean(interactions_per_member)   # Calculate the average of the number of interactions across all the members
+        print(f"The average of the number of interactions: {average_of_interactions}\n")
+
+        std_of_interactions = np.std(interactions_per_member)   # Calculate the standard deviation of the number of interactions across all the members
+        print(f"The standard deviation of the number of interactions: {std_of_interactions}\n")
+
+
+def main():
+
+    """Main function.
+    """
+
+    text_file = file_load()
+    true_or_false = is_symmetry(text_file)
+    result_of_analysis(text_file, true_or_false)
+
+
+if __name__ == "__main__":
+    main()
