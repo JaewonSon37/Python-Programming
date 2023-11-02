@@ -1,0 +1,139 @@
+## Name: Jaewon Son
+## Date: November 01 2023
+## Honor Statement: I have not given or received any unauthorized assistance on this assignment.
+## Link: 
+
+
+import pandas as pd
+
+
+def file_load():
+
+    """Load data from two tsv files.
+
+    Returns:
+        dataframe: Returns data frames containing artists and tracks data.
+    """
+    
+    artists_df = pd.read_csv('C:\\Users\\LG\\Desktop\\DEPAUL UNIV\\2023 Fall\\Python Programming\\DSC 430 - Week 8\\artists.tsv', delimiter = '\t')
+    tracks_df = pd.read_csv('C:\\Users\\LG\\Desktop\\DEPAUL UNIV\\2023 Fall\\Python Programming\\DSC 430 - Week 8\\tracks.tsv', delimiter = '\t')
+
+    return artists_df, tracks_df
+
+
+def max_followers_artist(artists_df):
+
+    """Find the artist name and genre with the maximum number of followers in the given data frame.
+    """
+
+    max_followers_artist_index = artists_df['followers'].idxmax()   # Find the index of the artist with the maximum number of followers
+    max_followers_artist_name = artists_df.loc[max_followers_artist_index, 'name']   # Extract the name of the artist with the maximum number of followers
+    max_followers_artist_genre = artists_df.loc[max_followers_artist_index, 'genres']   # Extract the genre(s) of the artist with the maximum number of followers
+
+    print('\n========================================================================\n')
+    print(f"{max_followers_artist_name} is the artist with the maximum number of followers. He(She)'s genre(s) is(are) {max_followers_artist_genre}.\n")
+    print('========================================================================\n')
+
+
+def most_productive_artist(artists_df, tracks_df):
+
+    """Find the artist name and the number of tracks in the given data frame.
+    """
+
+    most_productive_artist_tracks_count = tracks_df['id_artists'].str.split(', ').explode().value_counts().max()   # Count the number of tracks for each artist and find the maximum count of tracks 
+    most_productive_artist_id = tracks_df['id_artists'].str.split(', ').explode().value_counts().idxmax()   # Find the 'id_artist' value with the maximum track count
+    most_productive_artist_name = artists_df.loc[artists_df['id'] == most_productive_artist_id, 'name'].values[0]   # Extract the name of the most productive artist 
+    
+    print(f"The most productive artist is {most_productive_artist_name}. He(She) has {most_productive_artist_tracks_count} tracks.\n")
+    print('========================================================================\n')
+
+
+def summarize_genres(artists_df, genres):
+
+    """Summarize artists' data in the given data frame.
+    """
+
+    genre_summary = []
+    
+    for genre in genres:
+        
+        genre_data = artists_df[artists_df['genres'].str.contains(genre, case=False, na=False)]   # Filter the data frame to select rows with the given genre
+        total_artists = len(genre_data)   # Calculate the total number of artists in the genre      
+        average_followers = genre_data['followers'].mean()   # Calculate the average number of followers for artists in the genre        
+        genre_summary.append([genre, total_artists, average_followers])
+    
+    summarize_genres = pd.DataFrame(genre_summary, columns=['Genre', 'Total N', 'Average Followers'])   # Create a new data frame with 'genre_summary'
+    
+    print(summarize_genres)
+    print('\n========================================================================\n')
+    
+
+def get_genre_variants(artists_df, genre):
+
+    """Find the variants genre in the given data frame.
+    """
+    
+    genre_list = artists_df['genres'].str.split(', ').explode().tolist()   # Create a list of all genres
+    specific_genre_list = [variant for variant in genre_list if genre in variant.lower()]   # Extract the objects that match the specified genre
+    variants_genre_set = set(specific_genre_list)   # Eliminate duplicated objects
+    number_of_variants_genre_set = len(variants_genre_set)   # Count the number of objects in the list
+
+    print(f"There are {number_of_variants_genre_set} variants of jazz in this data set.\n")
+    print(f"Here is the list of jazz variants.\n")
+    print(f"{variants_genre_set}\n")
+    print('========================================================================\n')
+
+
+def summarize_artist_performance(artists_df, tracks_df, name):
+
+    """Perform analysis and print the results with the given data frames.
+    """
+
+    artist_name_id = artists_df.loc[artists_df['name'] == name, 'id'].values[0]   # Extract an artist's 'id'
+    total_track = tracks_df[tracks_df['id_artists'].str.contains(artist_name_id)]   # Extract rows that contain 'artist_name_id' value in 'id_artists' column
+    number_of_total_track = len(total_track)   # Count the number of objects in the list
+    print(f"The number of {name}'s tracks is {number_of_total_track}.\n")
+
+    solo_track = tracks_df[tracks_df['id_artists'] == artist_name_id]   # Extract rows that only contain 'artist_name_id' value in 'id_artists' column
+    number_of_solo_track = len(solo_track)   # Count the number of objects in the list
+    print(f"The number of {name}'s solo tracks is {number_of_solo_track}.\n")
+
+    collaborative_track = total_track[~total_track['id'].isin(solo_track['id'])]   # Extract rows that except 'solo_track' from 'total_track'
+    number_of_collaborative_track = len(collaborative_track)   # Count the number of objects in the list
+    print(f"The number of {name}'s collaborative tracks is {number_of_collaborative_track}.\n")
+            
+    average_popularity_of_total_track = total_track['popularity'].mean()   # Calculate the average popularity of total tracks
+    average_popularity_of_solo_track = solo_track['popularity'].mean()   # Calculate the average popularity of solo tracks
+    average_popularity_of_collaborative_track = collaborative_track['popularity'].mean()   # Calculate the average popularity of collaborative tracks
+    print(f"The average popularity of total, solo, and collaborative tracks are {average_popularity_of_total_track}, {average_popularity_of_solo_track}, {average_popularity_of_collaborative_track} each.\n")
+
+    collaborate_artist_list = collaborative_track['id_artists'].str.split(', ').explode().tolist()   # Create a list of all collaborated artists
+    unique_collaborate_artist_list = set(collaborate_artist_list)   # Eliminate duplicated objects
+    number_of_collaborate_artist = len(unique_collaborate_artist_list) - 1   # Minus 1 for excluding the main artist
+    print(f"The number of artists who collaborated with {name} is {number_of_collaborate_artist}.\n")
+    print('========================================================================\n')
+
+
+def main():
+
+    """Main function.
+    """
+
+    artists_df, tracks_df = file_load()
+
+    max_followers_artist(artists_df)
+
+    most_productive_artist(artists_df, tracks_df)
+
+    genres = ["pop", "hip hop", "rock", "metal", "jazz", "blues", "country", "folklore"]
+    summarize_genres(artists_df, genres)
+
+    genre = 'jazz'
+    get_genre_variants(artists_df, genre)
+
+    name = 'Michael Jackson'
+    summarize_artist_performance(artists_df, tracks_df, name)
+
+
+if __name__ == "__main__":
+    main()
