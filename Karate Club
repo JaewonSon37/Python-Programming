@@ -76,7 +76,9 @@ def main():
     """
 
     text_file = file_load()
+
     true_or_false = is_symmetry(text_file)
+
     result_of_analysis(text_file, true_or_false)
 
 
