@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 # Read the CSV file
 height_df = pd.read_csv("C:\\Users\\LG\\Desktop\\DEPAUL UNIV\\2023 Fall\\Python Programming\\DSC 430 - Week 9\\HeightsAndWeights.csv")
 
-# Separate data into male and female groups
+# Separate height data into male and female groups
 height_df_male = height_df[height_df['Sex'] == 'Male']
 height_df_female = height_df[height_df['Sex'] == 'Female']
 
