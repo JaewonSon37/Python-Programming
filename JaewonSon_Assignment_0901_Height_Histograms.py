@@ -1,0 +1,55 @@
+## Name: Jaewon Son
+## Date: November 06 2023
+## Honor Statement: I have not given or received any unauthorized assistance on this assignment.
+## Link: https://youtu.be/PMZbtQzFbJs
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# Read the CSV file
+height_df = pd.read_csv("C:\\Users\\LG\\Desktop\\DEPAUL UNIV\\2023 Fall\\Python Programming\\DSC 430 - Week 9\\HeightsAndWeights.csv")
+
+# Separate data into male and female groups
+height_df_male = height_df[height_df['Sex'] == 'Male']
+height_df_female = height_df[height_df['Sex'] == 'Female']
+
+# Create a figure and axes
+fig, ax = plt.subplots()
+
+# Define the number of bins and bin_range
+number_of_bins = 10
+bin_range = (110, 210)
+
+# Plot the histograms for male and female heights
+ax.hist(height_df_male['Height'], bins = number_of_bins, range = bin_range, alpha = 0.5, label = 'Male Height', density = True)
+ax.hist(height_df_female['Height'], bins = number_of_bins, range = bin_range, alpha = 0.5, label = 'Female Height', density = True)
+
+# Compute the mean of male and female heights
+mean_height_male = np.mean(height_df_male['Height'])
+mean_height_female = np.mean(height_df_female['Height'])
+
+# Plot vertical lines at the mean values
+ax.axvline(mean_height_male, color = 'blue', linestyle = '--', label = 'Male Height Mean')
+ax.axvline(mean_height_female, color = 'red', linestyle = '--', label = 'Female Height Mean')
+
+# Label axes, title and create legends
+plt.xlabel('Height (cm)')
+plt.ylabel('Frequency')
+plt.title('Distribution of Heights by Gender')
+plt.legend()
+
+# Calculate the area under the histograms
+male_height_histogram, _ = np.histogram(height_df_male['Height'], bins = number_of_bins, range = bin_range, density = True)
+female_height_histogram, _ = np.histogram(height_df_female['Height'], bins = number_of_bins, range = bin_range, density = True)
+
+area_of_male_height_histogram = np.trapz(male_height_histogram, dx = (bin_range[1] - bin_range[0]) / number_of_bins)
+area_of_female_height_histogram = np.trapz(female_height_histogram, dx = (bin_range[1] - bin_range[0]) / number_of_bins)
+
+print(f"Area under Male Histogram: {area_of_male_height_histogram}")
+print(f"Area under Female Histogram: {area_of_female_height_histogram}")
+
+# Show the plot
+plt.show()
