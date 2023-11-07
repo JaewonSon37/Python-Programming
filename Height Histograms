@@ -19,7 +19,7 @@ height_df_female = height_df[height_df['Sex'] == 'Female']
 # Create a figure and axes
 fig, ax = plt.subplots()
 
-# Define the number of bins and bin_range
+# Define the number_of_bins and bin_range
 number_of_bins = 10
 bin_range = (110, 210)
 
