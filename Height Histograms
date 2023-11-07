@@ -35,7 +35,7 @@ mean_height_female = np.mean(height_df_female['Height'])
 ax.axvline(mean_height_male, color = 'blue', linestyle = '--', label = 'Male Height Mean')
 ax.axvline(mean_height_female, color = 'red', linestyle = '--', label = 'Female Height Mean')
 
-# Label axes, title and create legends
+# Label axes, title and create legend
 plt.xlabel('Height (cm)')
 plt.ylabel('Frequency')
 plt.title('Distribution of Heights by Gender')
