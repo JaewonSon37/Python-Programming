@@ -33,7 +33,7 @@ y1 = slope * x1 + intercept
 y2 = slope * x2 + intercept
 
 # Plot the regression line
-plt.plot([x1, x2], [y1, y2], label = f'Linear Regression Line: y = {slope}x + {intercept}', color='green')
+plt.plot([x1, x2], [y1, y2], label = f'Linear Regression Line: y = {slope}x + {intercept}', color = 'green')
 
 # Calculate the means and standard deviations for height and weight
 height_mean = height_weight_df['Height'].mean()
