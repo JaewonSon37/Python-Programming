@@ -1,0 +1,56 @@
+## Name: Jaewon Son
+## Date: November 17 2023
+## Honor Statement: I have not given or received any unauthorized assistance on this assignment.
+## Link: https://youtu.be/dUWBCpk0HeI
+
+
+import numpy as np
+import cv2
+
+
+def salt_and_pepper(img, p):
+
+    """Add salt-and-pepper noise to the input image.
+
+    Returns:
+        np.ndarray: Returns noisy image with salt-and-pepper noise.
+    """
+
+    noisy_img = np.copy(img)
+    salt_pepper = np.random.rand(*img.shape[:2])   # Generate random values for each pixel in the image
+    noisy_img[salt_pepper < p / 2] = 0   # Set pixels to 0
+    noisy_img[salt_pepper > 1 - p / 2] = 255   # Set pixels to 255
+
+    return noisy_img
+
+
+def median_filter(img, W):
+
+    """Apply median filtering to the input image.
+
+    Returns:
+        np.ndarray: Returns filtered image after applying median filtering.
+    """
+
+    filtered_img = np.copy(img)
+    half_W = W // 2   # Calculate half of the window size
+
+    for i in range(half_W, img.shape[0] - half_W):
+        for j in range(half_W, img.shape[1] - half_W):
+            neighborhood = img[i - half_W : i + half_W + 1, j - half_W : j + half_W + 1]   # Extract the neighborhhod around each pixel
+            filtered_img[i, j] = np.median(neighborhood)   # Replace the pixel value with the median value of the neighborhood
+
+    return filtered_img
+
+
+img = cv2.imread("C:\\Users\\LG\\Desktop\\DEPAUL UNIV\\2023 Fall\\Python Programming\\DSC 430 - Week 10\\Depaul.jpg")   # Load the image
+gray_img = img[:, :, 2]   # Extract the blue channel as a grayscale image
+noisy_img = salt_and_pepper(gray_img, p = 0.1)   # Add salt-and-pepper noise with probability p
+filtered_img = median_filter(noisy_img, W = 3)   # Apply median filtering with window size W
+
+# Display the images
+cv2.imshow("Original Image", img)
+cv2.imshow("Noisy Image", noisy_img)
+cv2.imshow("Filtered Image", filtered_img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
